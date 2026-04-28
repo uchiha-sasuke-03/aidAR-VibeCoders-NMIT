@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+faiss-cpu
+torch
+transformers
+numpy
+pytesseract
+pillow
