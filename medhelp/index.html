@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aidAR — AI + AR Medical Intelligence Platform</title>
+  <meta name="description"
+    content="A next-generation medical intelligence platform featuring 3D anatomy visualization, multi-agent AI diagnostics, brain & skin analysis, lung health monitoring, and real-time digital twin biometrics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+
+<body data-theme="dark">
+
+
+  <!-- PARTICLE ENGINE (BACKGROUND) -->
+  <canvas id="particle-bg" class="particle-canvas"></canvas>
+
+  <!-- ======================================================
+       LANDING PAGE
+       ====================================================== -->
+  <div id="landing-page">
+
+    <!-- TOP STRIP NAV -->
+    <nav class="landing-nav">
+      <div class="landing-logo">aid<span class="logo-ai">AR</span></div>
+      <div class="landing-nav-links">
+        <a href="#features-section-anchor">Platform Capabilities</a>
+        <a href="#tools-section-anchor">Tech Stack</a>
+        <a href="#pipeline-section-anchor">Agent Pipeline</a>
+      </div>
+      <div class="landing-nav-right">
+        <div class="theme-switch-wrapper">
+          <span class="theme-label">LITE</span>
+          <button class="theme-switch" aria-label="Toggle Lighting">
+            <div class="theme-switch-knob"></div>
+          </button>
+        </div>
+        <button class="btn-nav-login" id="btn-login">Sign In</button>
+      </div>
+    </nav>
+
+    <!-- ── HERO ──────────────────────────────────── -->
+    <section class="hero">
+      <!-- Hero Orbs Removed to fix CSS Grid Collapse -->
+
+      <div class="hero-content">
+        <!-- Left: Big Title Block -->
+        <div class="hero-left">
+          <div class="hero-eyebrow">
+            <span class="hero-eyebrow-text">Multi-Agent AI + AR Medical Intelligence Platform</span>
+          </div>
+
+          <h1 class="hero-title hero-text"><span class="hero-stripe-text">Redefining</span>
+            <span class="hero-title-accent" style="white-space: nowrap;"> Clinical AI</span>
+          </h1>
+          <p class="hero-tagline hero-text">A convergence of 3D anatomical simulation, multi-agent diagnostics and
+            real-time digital twin biometrics—engineered for the next generation of healthcare.</p>
+
+          <div class="hero-ctas">
+            <button class="btn-primary" id="btn-enter-app">
+              Enter Platform
+            </button>
+            <button class="btn-secondary" id="btn-explore-features">Explore Features ↓</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-chip">
+              <span class="stat-val">3D</span>
+              <span class="stat-label">Anatomy Viewer</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-chip">
+              <span class="stat-val">AI</span>
+              <span class="stat-label">Diagnostic NLP</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-chip">
+              <span class="stat-val">AR</span>
+              <span class="stat-label">Step Guide</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Editorial Platform Stats Card -->
+        <div class="hero-right hero-image">
+          <div class="hero-stats-card">
+            <div class="hsc-header">
+              <span class="hsc-label">Platform Status</span>
+              <span class="hsc-live"><span class="hsc-dot"></span>Live</span>
+            </div>
+
+            <div class="hsc-metrics">
+              <div class="hsc-metric">
+                <span class="hsc-metric-val" id="live-agents" data-target="5">0</span>
+                <span class="hsc-metric-unit">agents</span>
+                <span class="hsc-metric-name">AI Specialists Online</span>
+              </div>
+              <div class="hsc-divider"></div>
+              <div class="hsc-metric">
+                <span class="hsc-metric-val" id="live-ms" data-target="35">0</span>
+                <span class="hsc-metric-unit">sec</span>
+                <span class="hsc-metric-name">Avg. Response Time</span>
+              </div>
+              <div class="hsc-divider"></div>
+              <div class="hsc-metric">
+                <span class="hsc-metric-val" id="live-acc" data-target="98">0</span>
+                <span class="hsc-metric-unit">%</span>
+                <span class="hsc-metric-name">Diagnostic Accuracy</span>
+              </div>
+            </div>
+
+            <!-- Waveform canvas -->
+            <div class="hsc-waveform-wrap">
+              <div class="hsc-waveform-label">
+                <span>Biometric Telemetry</span>
+                <span class="hsc-waveform-val" id="live-bpm">72 BPM</span>
+              </div>
+              <canvas id="waveform-canvas" class="hsc-waveform"></canvas>
+            </div>
+
+            <div class="hsc-agents">
+              <div class="hsc-agent-row">
+                <span class="hsc-agent-dot active"></span>
+                <span class="hsc-agent-name">Doctor AI</span>
+                <span class="hsc-agent-status">Ready</span>
+              </div>
+              <div class="hsc-agent-row">
+                <span class="hsc-agent-dot active"></span>
+                <span class="hsc-agent-name">Brain AI</span>
+                <span class="hsc-agent-status">Ready</span>
+              </div>
+              <div class="hsc-agent-row">
+                <span class="hsc-agent-dot active"></span>
+                <span class="hsc-agent-name">Skin AI</span>
+                <span class="hsc-agent-status">Ready</span>
+              </div>
+              <div class="hsc-agent-row">
+                <span class="hsc-agent-dot active"></span>
+                <span class="hsc-agent-name">Lung AI</span>
+                <span class="hsc-agent-status">Ready</span>
+              </div>
+              <div class="hsc-agent-row">
+                <span class="hsc-agent-dot active"></span>
+                <span class="hsc-agent-name">Digital Twin</span>
+                <span class="hsc-agent-status">Syncing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ANIMATION SHOWCASE OVERLAYS (AnimeJS v4) ──────────────── -->
+    <div class="animation-showcase"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1;">
+      <!-- 1. .square -->
+      <div class="square"
+        style="width: 40px; height: 40px; background: var(--accent); position: absolute; top: 15%; right: 5%; opacity: 0.5;">
+      </div>
+
+      <!-- 2. .shape -->
+      <div class="shape"
+        style="width: 60px; height: 60px; border: 1px solid var(--border); position: absolute; top: 40%; left: 8%; opacity: 0.3;">
+      </div>
+      <div class="shape"
+        style="width: 45px; height: 45px; border: 1px solid var(--accent); position: absolute; top: 42%; left: 10%; opacity: 0.3;">
+      </div>
+
+      <!-- 3. SVG Path -->
+      <svg width="100%" height="100%" style="position: absolute; inset: 0; opacity: 0.2;">
+        <path class="scroll-path" d="M-100,500 Q400,200 800,500 T2000,500" fill="none" stroke="var(--border)"
+          stroke-width="2" />
+      </svg>
+
+      <!-- 4. .dot grid -->
+      <div class="dot-grid"
+        style="position: absolute; top: 60%; right: 5%; display: grid; grid-template-columns: repeat(13, 12px); gap: 8px; opacity: 0.3;">
+        <!-- Generate via JS -->
+      </div>
+
+      <!-- 5. .circuit and .car -->
+      <svg width="400" height="400" style="position: absolute; top: 75%; left: 5%; opacity: 0.4;">
+        <path class="circuit circuit-a" d="M50,200 Q200,50 350,200" fill="none" stroke="var(--accent)"
+          stroke-width="1" />
+        <path class="circuit-b" d="M50,200 Q200,350 350,200" fill="none" stroke="transparent" />
+        <circle class="car" cx="0" cy="0" r="5" fill="#fff" />
+      </svg>
+
+      <!-- Draggable circle removed -->
+
+      <!-- 7. .ticker -->
+      <div class="ticker-wrap"
+        style="position: absolute; top: 10%; left: 10%; width: 100px; height: 100px; border-radius: 50%; border: 1px solid var(--border); opacity: 0.5;">
+        <div class="ticker" style="width: 100%; height: 100%; position: relative;">
+          <!-- .tick generated via js -->
+        </div>
+      </div>
+
+      <!-- 8. mq-circle -->
+      <div class="mq-circle"
+        style="width: 20px; height: 20px; border-radius: 50%; background: var(--border); position: absolute; top: 50%; right: 50%; opacity: 0.5;">
+      </div>
+
+      <!-- 9. Floating pulse rings -->
+      <div class="pulse-ring"
+        style="position: absolute; top: 20%; right: 25%; width: 80px; height: 80px; border-radius: 50%; border: 1px solid var(--accent); opacity: 0;">
+      </div>
+      <div class="pulse-ring"
+        style="position: absolute; top: 65%; left: 25%; width: 60px; height: 60px; border-radius: 50%; border: 1px solid var(--border); opacity: 0;">
+      </div>
+      <div class="pulse-ring"
+        style="position: absolute; top: 80%; right: 35%; width: 100px; height: 100px; border-radius: 50%; border: 1px solid var(--accent); opacity: 0;">
+      </div>
+
+      <!-- 10. Floating data lines -->
+      <div class="data-line"
+        style="position: absolute; top: 30%; left: 20%; width: 80px; height: 1px; background: var(--accent); opacity: 0; transform-origin: left;">
+      </div>
+      <div class="data-line"
+        style="position: absolute; top: 55%; right: 15%; width: 120px; height: 1px; background: var(--border); opacity: 0; transform-origin: right;">
+      </div>
+      <div class="data-line"
+        style="position: absolute; top: 85%; left: 35%; width: 60px; height: 1px; background: var(--accent); opacity: 0; transform-origin: left;">
+      </div>
+
+      <!-- 11. Orbiting dots -->
+      <svg class="orbit-svg" width="200" height="200" style="position: absolute; top: 8%; right: 30%; opacity: 0.25;">
+        <circle cx="100" cy="100" r="80" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="4 6" />
+        <circle class="orbit-dot" cx="180" cy="100" r="3" fill="var(--accent)" />
+      </svg>
+    </div>
+
+    <!-- ── ABOUT / INTRO BAND ──────────────────────────────── -->
+    <section class="intro-band" style="position: relative; z-index: 2;">
+      <div class="intro-band-inner reveal">
+        <p class="intro-band-text">Built at the convergence of <strong>3D anatomical simulation</strong>,
+          <strong>multi-agent AI</strong>, and <strong>real-time biometric intelligence</strong> — aidAR delivers a
+          unified clinical platform for diagnostics, procedural training, and personalized health monitoring.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── ANIMATED METRICS BAND ──────────────────────────── -->
+    <section class="metrics-band">
+      <div class="metrics-inner">
+        <div class="metric-block">
+          <span class="metric-num" data-target="5">0</span>
+          <span class="metric-label">AI Agents</span>
+        </div>
+        <div class="metric-sep">×</div>
+        <div class="metric-block">
+          <span class="metric-num" data-target="6">0</span>
+          <span class="metric-label">Clinical Specialties</span>
+        </div>
+        <div class="metric-sep">×</div>
+        <div class="metric-block">
+          <span class="metric-num metric-sec" data-target="35">0</span>
+          <span class="metric-label">sec Agent Response</span>
+        </div>
+        <div class="metric-sep">×</div>
+        <div class="metric-block">
+          <span class="metric-num" data-target="3">0</span>
+          <span class="metric-label">3D Blender Models</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── FEATURES GRID ───────────────────────────────────── -->
+    <section class="section-block" id="features-section-anchor">
+      <div class="section-header reveal">
+        <div class="section-tag">aidAR Platform</div>
+        <h2>Platform Capabilities</h2>
+        <p>Six integrated AI systems working in concert to deliver the most comprehensive medical intelligence platform
+          available.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-tile">
+          <div class="feature-tile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+              </path>
+            </svg>
+          </div>
+          <h3>3D Anatomy Viewer</h3>
+          <p>A fully interactive, procedurally generated 3D human body model rendered via Three.js WebGL. Supports CPR
+            simulation, hemorrhage control, and airway management with GPU-accelerated geometry animations and
+            OrbitControls.</p>
+          <div class="feature-tile-tag">Three.js &middot; WebGL &middot; TypeScript</div>
+        </div>
+
+        <div class="feature-tile">
+          <div class="feature-tile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+          </div>
+          <h3>Doctor AI Agent</h3>
+          <p>A conversational multi-agent diagnostic engine powered by the Gemini LLM API. Interprets natural-language
+            symptom descriptions, identifies critical conditions, and routes to evidence-based first-aid protocols in
+            real time.</p>
+          <div class="feature-tile-tag">Gemini API &middot; FastAPI &middot; Python</div>
+        </div>
+
+        <div class="feature-tile">
+          <div class="feature-tile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="6"></circle>
+              <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"></path>
+            </svg>
+          </div>
+          <h3>Brain AI Agent</h3>
+          <p>A neuro-imaging analysis agent that processes uploaded MRI and CT scans to detect anomalies, measure
+            cortical thickness, and flag early markers of neurological conditions with granular confidence scoring.</p>
+          <div class="feature-tile-tag">Gemini Vision &middot; Computer Vision &middot; FastAPI</div>
+        </div>
+
+        <div class="feature-tile">
+          <div class="feature-tile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+              </path>
+            </svg>
+          </div>
+          <h3>Skin AI Agent</h3>
+          <p>A dermatological classification agent that evaluates uploaded skin lesion photographs, distinguishes
+            between benign and malignant presentations, and delivers a risk score with a structured clinical
+            recommendation.</p>
+          <div class="feature-tile-tag">Gemini Vision &middot; Image Classification &middot; FastAPI</div>
+        </div>
+
+        <div class="feature-tile">
+          <div class="feature-tile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+          </div>
+          <h3>Lung AI Agent</h3>
+          <p>A respiratory health monitoring agent that analyzes chest X-rays to detect pneumonia, fibrosis, and
+            obstruction patterns, delivering structured clinical findings with confidence intervals.</p>
+          <div class="feature-tile-tag">Gemini Vision &middot; Radiology AI &middot; FastAPI</div>
+        </div>
+
+        <div class="feature-tile">
+          <div class="feature-tile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h3>Digital Twin Agent</h3>
+          <p>A real-time biometric synchronization agent that maps physiological telemetry onto an interactive 3D
+            patient model for continuous live health monitoring via WebSocket.</p>
+          <div class="feature-tile-tag">WebSocket &middot; Three.js &middot; Biometrics</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TECH STACK GRID ──────────────────────────────────── -->
+    <section class="section-block alt-bg" id="tools-section-anchor">
+      <div class="section-header reveal">
+        <div class="section-tag">aidAR Architecture</div>
+        <h2>Technology Stack</h2>
+        <p>The carefully chosen tools and frameworks powering the 3D viewer, multi-agent AI systems, and real-time
+          biometric pipeline.</p>
+      </div>
+
+      <div class="tools-grid-container">
+        <div class="feat-card">
+          <span class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+              <line x1="12" y1="22" x2="12" y2="15.5"></line>
+              <polyline points="22 8.5 12 15.5 2 8.5"></polyline>
+            </svg></span>
+          <h3>Three.js</h3>
+          <p>WebGL 3D rendering engine powering the procedural anatomy viewer and digital twin visualization</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg></span>
+          <h3>Vite + TypeScript</h3>
+          <p>Lightning-fast frontend build tooling with strict typing across all viewer, animation, and UI modules</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg></span>
+          <h3>Anime.js v4</h3>
+          <p>Spring-physics animation timeline orchestrating all UI kinetics, procedural body animations, and background
+            motion</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="16" y="16" width="6" height="6" rx="1"></rect>
+              <rect x="2" y="16" width="6" height="6" rx="1"></rect>
+              <rect x="9" y="2" width="6" height="6" rx="1"></rect>
+              <path d="M5 16v-3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"></path>
+              <path d="M12 11V8"></path>
+            </svg></span>
+          <h3>Gemini API</h3>
+          <p>Google Gemini LLM and Vision models driving all five AI agents — Doctor, Brain, Skin, Lung, and Digital
+            Twin</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg></span>
+          <h3>FastAPI</h3>
+          <p>High-performance Python async API backend orchestrating the multi-agent AI pipeline and biometric data
+            streams</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 12 12 17 22 12"></polyline>
+              <polyline points="2 17 12 22 22 17"></polyline>
+            </svg></span>
+          <h3>Python 3.11</h3>
+          <p>Core language for backend AI logic, image processing pipelines, and biometric data analysis across all
+            agents</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg></span>
+          <h3>WebSocket</h3>
+          <p>Real-time bidirectional communication channel for Digital Twin biometric telemetry and live patient
+            monitoring</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg></span>
+          <h3>Web Speech API</h3>
+          <p>Browser-native TTS narration system providing real-time contextual voice guidance during 3D procedure
+            training</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+              <rect x="9" y="9" width="6" height="6"></rect>
+            </svg></span>
+          <h3>CSS Custom Properties</h3>
+          <p>Full adaptive theming engine managing light and dark modes with editorial design tokens across the entire
+            platform</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MULTI-AGENT PIPELINE FLOW ──────────────────────── -->
+    <section class="section-block pipeline-section" id="pipeline-section-anchor">
+      <div class="section-header reveal">
+        <div class="section-tag">How It Works</div>
+        <h2>The Agent Pipeline</h2>
+        <p>Five specialized AI agents work in concert, orchestrated by a FastAPI backend in under 50ms.</p>
+      </div>
+      <div class="pipeline-flow">
+        <div class="pipeline-step reveal">
+          <div class="pipeline-step-num">01</div>
+          <div class="pipeline-step-content">
+            <h4>Input</h4>
+            <p>Symptom description, scan upload, or biometric stream enters the platform</p>
+          </div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step reveal">
+          <div class="pipeline-step-num">02</div>
+          <div class="pipeline-step-content">
+            <h4>Routing</h4>
+            <p>FastAPI orchestrator classifies the input and dispatches to the correct specialist agent</p>
+          </div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step reveal">
+          <div class="pipeline-step-num">03</div>
+          <div class="pipeline-step-content">
+            <h4>Analysis</h4>
+            <p>Gemini LLM or Vision model processes the data with clinical context and prior knowledge</p>
+          </div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step reveal">
+          <div class="pipeline-step-num">04</div>
+          <div class="pipeline-step-content">
+            <h4>Output</h4>
+            <p>Structured clinical findings, risk scores, and recommended actions delivered to the interface</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DARK CTA BAND ────────────────────────────────────── -->
+    <section class="cta-band">
+      <div class="cta-band-inner">
+        <div class="cta-band-tag">Begin Now</div>
+        <h2 class="cta-band-title">Your clinical intelligence<br><em>platform awaits.</em></h2>
+        <button class="cta-band-btn" id="btn-open-auth">Enter Platform →</button>
+      </div>
+    </section>
+
+    <!-- ── ACCESS TERMINAL ──────────────────────────────────── -->
+    <section class="section-block" id="login-section-anchor">
+      <div class="section-header reveal">
+        <div class="section-tag">Secure Access</div>
+        <h2>Sign In</h2>
+        <p>Create an account or sign in to access the full platform.</p>
+      </div>
+      <div class="auth-trigger-wrap reveal">
+        <button class="btn-primary auth-open-btn" id="btn-login">Open Sign In</button>
+        <span class="auth-trigger-note">or <a id="skip-login">continue as guest →</a></span>
+      </div>
+    </section>
+
+  </div><!-- /landing-page -->
+
+
+  <!-- ======================================================
+       APP PAGE
+       ====================================================== -->
+  <div id="app-page">
+
+    <div class="app-bg"></div>
+    <div class="app-bg-glow"></div>
+
+    <!-- TOP NAV -->
+    <header id="top-nav">
+      <div class="nav-inner">
+        <div class="logo-text">aid<span class="logo-ai">AR</span></div>
+
+        <div class="nav-tabs">
+          <button class="nav-tab active" data-tab="viewer">3D Viewer</button>
+          <button class="nav-tab" data-tab="doctor">Doctor AI</button>
+          <button class="nav-tab" data-tab="brain">Brain AI</button>
+          <button class="nav-tab" data-tab="skin">Skin AI</button>
+          <button class="nav-tab" data-tab="twin">Create Digital Twin</button>
+          <button class="nav-tab" data-tab="meditwin">MediTwin</button>
+        </div>
+
+        <div class="nav-status">
+          <div class="theme-switch-wrapper inline-toggle">
+            <span class="theme-label">LITE_SYS</span>
+            <button class="theme-switch" aria-label="Toggle Lighting">
+              <div class="theme-switch-knob"></div>
+            </button>
+          </div>
+          <span class="status-dot"></span>
+          <span class="sys-active-label">System Active</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <main id="app-main">
+
+      <!-- 3D VIEWER — fills entire app-main -->
+      <section id="viewer-panel">
+        <div class="viewfinder-frame"></div>
+        <div id="three-canvas-container"></div>
+
+        <div id="viewer-info">
+          <span id="viewer-mode-label">Interactive Mode</span>
+        </div>
+      </section>
+
+      <div id="doctor-overlay" class="feature-overlay" data-target="doctor">
+        <div class="overlay-header">
+          <span class="overlay-title">Doctor AI</span>
+          <button class="overlay-close">Close</button>
+        </div>
+        <div id="doctor-messages" class="chat-messages"></div>
+        <div class="chat-input-area">
+          <input type="text" id="doctor-input" class="chat-input" placeholder="Describe symptoms..."
+            autocomplete="off" />
+          <button id="doctor-send" class="send-btn">SEND</button>
+        </div>
+      </div>
+
+      <!-- Brain AI — Fullscreen Iframe -->
+      <div id="brain-overlay" class="feature-overlay iframe-view" data-target="brain">
+        <div class="overlay-header">
+          <span class="overlay-title">Brain AI — MRI Analysis</span>
+          <button class="overlay-close">Close</button>
+        </div>
+        <iframe id="brain-iframe" class="embed-iframe" data-src="/brain-ai.html" title="Brain AI"></iframe>
+      </div>
+
+      <!-- Skin AI — Fullscreen Iframe -->
+      <div id="skin-overlay" class="feature-overlay iframe-view" data-target="skin">
+        <div class="overlay-header">
+          <span class="overlay-title">Skin AI — Dermatological Analysis</span>
+          <button class="overlay-close">Close</button>
+        </div>
+        <iframe id="skin-iframe" class="embed-iframe" data-src="/skin-ai.html" title="Skin AI"></iframe>
+      </div>
+
+      <!-- Digital Twin — Fullscreen Iframe -->
+      <div id="twin-overlay" class="feature-overlay iframe-view" data-target="twin">
+        <div class="overlay-header">
+          <span class="overlay-title">Digital Twin — Patient Simulation</span>
+          <button class="overlay-close">Close</button>
+        </div>
+        <iframe id="twin-iframe" class="embed-iframe" data-src="/digital-twin.html" title="Digital Twin Dashboard"></iframe>
+      </div>
+
+      <!-- MediTwin — Fullscreen Iframe -->
+      <div id="meditwin-overlay" class="feature-overlay iframe-view" data-target="meditwin">
+        <div class="overlay-header">
+          <span class="overlay-title">MediTwin — Pharma Simulation</span>
+          <button class="overlay-close">Close</button>
+        </div>
+        <iframe id="meditwin-iframe" class="embed-iframe" data-src="http://localhost:3000/patient/simulation" title="MediTwin Dashboard"></iframe>
+      </div>
+
+      <!-- SIDE COLUMN — Contains independent hardware panels -->
+      <aside id="side-column">
+        <!-- Panel 1: AR Narrator -->
+        <div id="narrator-wrapper" class="skeuo-panel-box">
+
+          <div class="panel-tabs">
+            <button class="panel-tab active" data-panel="narrator">📡 AR Narrator</button>
+          </div>
+
+          <div id="narrator-panel" class="chat-panel active">
+            <div id="narrator-messages" class="chat-messages">
+              <div class="msg ai">
+                <span class="ai-badge">AR-SYS</span>
+                AR Narrator active. Select a procedure in the 3D Viewer and I will guide you step-by-step.
+              </div>
+            </div>
+            <div class="narrator-status">
+              <span class="status-dot"></span>
+              <span>Watching 3D Viewer…</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Procedures -->
+        <div id="procedure-wrapper" class="skeuo-panel-box">
+          <div id="animation-controls" class="chat-panel active">
+            <div
+              style="font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.8rem; text-align: center;">
+              Select Procedure</div>
+            <div class="controls-btns">
+              <div class="btn-group">
+                <button id="btn-cpr" class="anim-btn cpr-btn">CPR Simulation</button>
+                <button id="btn-bleeding" class="anim-btn bleed-btn">Hemorrhage Control</button>
+              </div>
+              <div class="btn-group">
+                <button id="btn-electric-shock" class="anim-btn shock-btn">Electric Shock</button>
+              </div>
+              <div class="btn-group utility">
+                <button id="btn-reset" class="anim-btn reset-btn">Reset Scene</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <button id="mobile-panel-toggle">☰</button>
+  </div>
+
+  <!-- ── AUTH OVERLAY (VengenceUI Style) ── -->
+  <div id="auth-overlay">
+    <button class="auth-close" id="btn-close-auth">×</button>
+    <div class="auth-panel">
+      <h2 id="auth-title">Sign In</h2>
+      <p class="auth-sub" id="auth-subtitle">Access your clinical workspace</p>
+
+      <button class="auth-btn-social">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+          <path fill="currentColor"
+            d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27c3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10c5.35 0 9.25-3.67 9.25-9.09c0-1.15-.15-1.81-.15-1.81Z" />
+        </svg>
+        Continue with Google
+      </button>
+      <button class="auth-btn-social">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.36 14.62c-.66.35-1.46.54-2.31.54-2.35 0-4.32-1.76-4.66-4.04H8.4v-2.22h.01c.29-2.21 2.18-3.92 4.47-3.92 1.25 0 2.38.5 3.21 1.32l-1.57 1.57c-.43-.41-1-.66-1.63-.66-1.28 0-2.32 1.04-2.32 2.32s1.04 2.32 2.32 2.32c.62 0 1.18-.24 1.59-.62V12h-1.6v-2h3.84v4.44c0 .43-.07.84-.19 1.22z" />
+        </svg>
+        Continue with Apple
+      </button>
+
+      <div class="auth-divider">or</div>
+
+      <form class="auth-form" id="auth-form">
+        <div class="auth-input-wrap signup-field">
+          <label>Full Name</label>
+          <input type="text" class="auth-input" placeholder="Dr. Jane Doe" autocomplete="name" />
+        </div>
+        <div class="auth-input-wrap">
+          <label>Email Address</label>
+          <input type="email" class="auth-input" placeholder="name@hospital.org" autocomplete="email" />
+        </div>
+        <div class="auth-input-wrap">
+          <label>Password</label>
+          <input type="password" class="auth-input" placeholder="••••••••" autocomplete="current-password" />
+        </div>
+        <button type="submit" class="auth-submit" id="auth-submit-btn">Sign In →</button>
+      </form>
+
+      <div class="auth-toggle">
+        <span id="auth-toggle-text">Don't have an account?</span>
+        <a id="btn-toggle-auth">Create one</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

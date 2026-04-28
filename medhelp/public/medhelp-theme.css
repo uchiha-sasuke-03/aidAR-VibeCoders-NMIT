@@ -1,0 +1,275 @@
+/* ══════════════════════════════════════════════════
+   aidAR SHARED MODULE THEME — Neo Brutalist Override
+   Applied to: Brain AI, Skin AI, Digital Twin
+   ══════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+/* ── GLOBAL RESET & BASE ── */
+:root {
+  --mh-bg:        #0F0F0F;
+  --mh-bg2:       #141414;
+  --mh-bg3:       #1A1A1A;
+  --mh-bg4:       #222222;
+  --mh-border:    #2A2A2A;
+  --mh-border2:   #333333;
+  --mh-accent:    #22c55e;
+  --mh-accent2:   #4ade80;
+  --mh-text:      #F0EDE8;
+  --mh-text2:     #9B9B9B;
+  --mh-text3:     #6B6B6B;
+  --mh-success:   #22c55e;
+  --mh-warn:      #f59e0b;
+  --mh-serif:     'Playfair Display', Georgia, serif;
+  --mh-sans:      'Inter', system-ui, sans-serif;
+  --mh-mono:      'DM Mono', monospace;
+}
+
+html, body {
+  font-family: var(--mh-sans) !important;
+  background: var(--mh-bg) !important;
+  color: var(--mh-text) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAVIGATION / HEADER ── */
+nav, header {
+  background: rgba(15,15,15,0.97) !important;
+  border-bottom: 1px solid var(--mh-border) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+/* ── LOGO TEXT ── */
+.logo, .logo-text {
+  font-family: var(--mh-serif) !important;
+  color: var(--mh-text) !important;
+  background: none !important;
+  -webkit-text-fill-color: var(--mh-text) !important;
+}
+
+.logo::before { display: none !important; }
+
+.logo-sub, .nav-badge {
+  font-family: var(--mh-mono) !important;
+  color: var(--mh-text3) !important;
+  font-size: 11px !important;
+}
+
+.nav-badge {
+  background: rgba(34,197,94,0.08) !important;
+  border: 1px solid rgba(34,197,94,0.25) !important;
+  color: var(--mh-accent) !important;
+  border-radius: 2px !important;
+}
+
+/* ── NAV LINKS ── */
+.nav-links a {
+  color: var(--mh-text2) !important;
+  font-family: var(--mh-mono) !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+.nav-links a:hover { color: var(--mh-accent) !important; }
+
+/* ── PANELS / CARDS / SECTIONS ── */
+.left-panel, .right-panel, .upload-section,
+.report, .section, .finding, .metric-card,
+.recommendation, .error-box, .disclaimer,
+.container > *, .panel-card, .bg-surface {
+  background: var(--mh-bg2) !important;
+  border-color: var(--mh-border) !important;
+}
+
+/* ── UPLOAD ZONES ── */
+.upload-zone, .upload-box, .ct-file-drop {
+  background: rgba(34,197,94,0.02) !important;
+  border-color: var(--mh-border2) !important;
+  border-radius: 2px !important;
+}
+.upload-zone:hover, .upload-box:hover, .ct-file-drop:hover {
+  border-color: var(--mh-accent) !important;
+  background: rgba(34,197,94,0.05) !important;
+}
+.upload-zone.dragover, .upload-box.dragover, .ct-file-drop.dragover {
+  border-color: var(--mh-accent) !important;
+  background: rgba(34,197,94,0.08) !important;
+}
+
+/* ── INPUTS & SELECTS ── */
+input:not([type="file"]):not([type="range"]),
+select, textarea {
+  background: var(--mh-bg3) !important;
+  border: 1px solid var(--mh-border) !important;
+  color: var(--mh-text) !important;
+  border-radius: 2px !important;
+  font-family: var(--mh-sans) !important;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--mh-accent) !important;
+  outline: none !important;
+}
+select option { background: var(--mh-bg3) !important; }
+
+/* ── RANGE SLIDERS ── */
+input[type="range"]::-webkit-slider-thumb {
+  background: var(--mh-accent) !important;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--mh-border2) !important;
+}
+
+/* ── LABELS ── */
+label {
+  font-family: var(--mh-mono) !important;
+  color: var(--mh-text3) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  font-size: 11px !important;
+}
+
+/* ── HEADINGS ── */
+h1, h2, h3 {
+  font-family: var(--mh-serif) !important;
+  color: var(--mh-text) !important;
+}
+
+/* ── SECTION TITLES (mono uppercase) ── */
+.panel-title, .section-heading, .form-section-title,
+.ct-section-title, .ct-header p {
+  font-family: var(--mh-mono) !important;
+  color: var(--mh-accent) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* ── ACCENT COLOR OVERRIDES ── */
+.accent, [style*="#00d9ff"], [style*="#63b3ed"],
+[style*="#00c8ff"], [style*="#4299e1"],
+.report h2, .section h3, .section-heading {
+  color: var(--mh-accent) !important;
+}
+
+/* ── SECTION DOTS ── */
+.section-dot { background: var(--mh-accent) !important; }
+
+/* ── TAGS / BADGES ── */
+.tag, .risk-badge, .nav-badge {
+  font-family: var(--mh-mono) !important;
+  border-radius: 2px !important;
+}
+
+/* ── PRIMARY BUTTONS ── */
+.analyze-btn, .btn-primary, .ct-submit,
+button.analyze-btn, button[onclick*="analyze"],
+button[onclick*="generate"], button[type="submit"] {
+  background: var(--mh-accent) !important;
+  border: 1px solid var(--mh-accent) !important;
+  color: #fff !important;
+  font-family: var(--mh-mono) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+.analyze-btn:hover:not(:disabled),
+.btn-primary:hover:not(:disabled),
+.ct-submit:hover {
+  background: var(--mh-accent2) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 16px rgba(34,197,94,0.35) !important;
+}
+.analyze-btn:disabled, .btn-primary:disabled {
+  background: var(--mh-bg4) !important;
+  border-color: var(--mh-border) !important;
+  color: var(--mh-text3) !important;
+  cursor: not-allowed !important;
+}
+
+/* ── SECONDARY BUTTONS ── */
+.btn-secondary {
+  background: transparent !important;
+  border: 1px solid var(--mh-border2) !important;
+  color: var(--mh-text2) !important;
+  font-family: var(--mh-mono) !important;
+  border-radius: 2px !important;
+}
+.btn-secondary:hover {
+  border-color: var(--mh-accent) !important;
+  color: var(--mh-accent) !important;
+}
+
+/* ── SPINNER ── */
+.spinner {
+  border-color: var(--mh-border2) !important;
+  border-top-color: var(--mh-accent) !important;
+}
+
+/* ── PROGRESS BAR ── */
+.progress-fill {
+  background: var(--mh-accent) !important;
+}
+
+/* ── FINDINGS / RISK CARDS ── */
+.finding {
+  border-left-color: var(--mh-accent) !important;
+  background: rgba(34,197,94,0.04) !important;
+  border-radius: 2px !important;
+}
+.finding.warning {
+  background: rgba(245,158,11,0.04) !important;
+  border-left-color: var(--mh-warn) !important;
+}
+.finding.success {
+  background: rgba(34,197,94,0.04) !important;
+  border-left-color: var(--mh-success) !important;
+}
+
+/* ── STEP NUMBERS ── */
+.step-num {
+  background: rgba(34,197,94,0.1) !important;
+  color: var(--mh-accent) !important;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--mh-bg); }
+::-webkit-scrollbar-thumb { background: var(--mh-border2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--mh-accent); }
+
+/* ── HERO SECTION ── */
+.hero h1 span, .hero h1 .highlight,
+.logo-icon, .empty-icon { filter: none !important; }
+
+/* ── REPORT HEADER LINES ── */
+.report-header { border-bottom-color: var(--mh-border) !important; }
+
+/* ── DISCLAIMER BOX ── */
+.disclaimer {
+  border-color: rgba(245,158,11,0.25) !important;
+  background: rgba(245,158,11,0.04) !important;
+  color: var(--mh-text2) !important;
+}
+.disclaimer strong { color: var(--mh-warn) !important; }
+
+/* ── LOGO ICON BACKGROUND ── */
+.logo-icon {
+  background: var(--mh-accent) !important;
+  border-radius: 2px !important;
+}
+
+/* ── RISK / SEVERITY BADGES ── */
+.risk-high, .severity-high {
+  background: rgba(34,197,94,0.12) !important;
+  color: #ff8096 !important;
+}
+.risk-moderate, .severity-moderate {
+  background: rgba(245,158,11,0.12) !important;
+  color: #fbbf24 !important;
+}
+.risk-low, .severity-low {
+  background: rgba(34,197,94,0.12) !important;
+  color: #4ade80 !important;
+}
