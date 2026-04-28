@@ -7,9 +7,9 @@
 import * as THREE from 'three';
 
 // ---- CUSTOM MODELS ----
-export const CPR_MODEL_PATH: string | null = '/models/cpr1.fbx';
-export const BLEEDING_MODEL_PATH: string | null = '/models/bleeding.fbx';
-export const ELECTRIC_SHOCK_MODEL_PATH: string | null = '/models/Electricshockk.fbx';
+export const CPR_MODEL_PATH: string | null = '/models/cpr1.glb';
+export const BLEEDING_MODEL_PATH: string | null = '/models/bleeding.glb';
+export const ELECTRIC_SHOCK_MODEL_PATH: string | null = '/models/Electricshockk.glb';
 
 export interface BodyParts {
   root: THREE.Group;
@@ -67,7 +67,7 @@ function createJointSphere(radius: number): THREE.Mesh {
   return mesh;
 }
 
-import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 export async function createProceduralModel(): Promise<BodyParts> {
   const root = new THREE.Group();
@@ -243,7 +243,7 @@ export async function createProceduralModel(): Promise<BodyParts> {
 
   // ----- LOAD CUSTOM MODELS IF PROVIDED -----
   if (CPR_MODEL_PATH || BLEEDING_MODEL_PATH || ELECTRIC_SHOCK_MODEL_PATH) {
-    const loader = new FBXLoader();
+    const loader = new GLTFLoader();
 
     // Hide procedural body meshes (keep pressure points and ring visible)
     torso.visible = false;
@@ -266,8 +266,9 @@ export async function createProceduralModel(): Promise<BodyParts> {
 
     if (CPR_MODEL_PATH) {
       try {
-        cprModel = await loader.loadAsync(CPR_MODEL_PATH);
-        cprModel.scale.setScalar(0.015); // Increased from 0.01 for better presentation
+        const gltf = await loader.loadAsync(CPR_MODEL_PATH);
+        cprModel = gltf.scene;
+        cprModel.scale.setScalar(0.15); // Increased for better presentation
         // Force all materials to be opaque
         cprModel.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
@@ -284,10 +285,10 @@ export async function createProceduralModel(): Promise<BodyParts> {
         root.add(cprModel);
         console.log('✅ Successfully loaded custom CPR model from:', CPR_MODEL_PATH);
 
-        if (cprModel.animations && cprModel.animations.length > 0) {
+        if (gltf.animations && gltf.animations.length > 0) {
           cprMixer = new THREE.AnimationMixer(cprModel);
-          cprAnimations = cprModel.animations;
-          console.log(`✅ Loaded ${cprAnimations.length} native animations from CPR FBX.`);
+          cprAnimations = gltf.animations;
+          console.log(`✅ Loaded ${cprAnimations.length} native animations from CPR GLB.`);
         }
 
         // Map custom rig nodes to animation targets (for procedural fallback)
@@ -312,8 +313,9 @@ export async function createProceduralModel(): Promise<BodyParts> {
 
     if (BLEEDING_MODEL_PATH) {
       try {
-        bleedingModel = await loader.loadAsync(BLEEDING_MODEL_PATH);
-        bleedingModel.scale.setScalar(0.0055); // Decreased from 0.01 because model was too large
+        const gltf = await loader.loadAsync(BLEEDING_MODEL_PATH);
+        bleedingModel = gltf.scene;
+        bleedingModel.scale.setScalar(0.15); // Adjusted scale
         bleedingModel.visible = false; // Hidden by default
         // Force all materials to be opaque
         bleedingModel.traverse((child) => {
@@ -331,10 +333,10 @@ export async function createProceduralModel(): Promise<BodyParts> {
         root.add(bleedingModel);
         console.log('✅ Successfully loaded custom Bleeding model from:', BLEEDING_MODEL_PATH);
 
-        if (bleedingModel.animations && bleedingModel.animations.length > 0) {
+        if (gltf.animations && gltf.animations.length > 0) {
           bleedingMixer = new THREE.AnimationMixer(bleedingModel);
-          bleedingAnimations = bleedingModel.animations;
-          console.log(`✅ Loaded ${bleedingAnimations.length} native animations from Bleeding FBX.`);
+          bleedingAnimations = gltf.animations;
+          console.log(`✅ Loaded ${bleedingAnimations.length} native animations from Bleeding GLB.`);
         }
       } catch (e) {
         console.error("Failed to load Bleeding model:", e);
@@ -343,8 +345,9 @@ export async function createProceduralModel(): Promise<BodyParts> {
 
     if (ELECTRIC_SHOCK_MODEL_PATH) {
       try {
-        electricShockModel = await loader.loadAsync(ELECTRIC_SHOCK_MODEL_PATH);
-        electricShockModel.scale.setScalar(0.015);
+        const gltf = await loader.loadAsync(ELECTRIC_SHOCK_MODEL_PATH);
+        electricShockModel = gltf.scene;
+        electricShockModel.scale.setScalar(0.15);
         electricShockModel.visible = false;
         electricShockModel.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
@@ -361,10 +364,10 @@ export async function createProceduralModel(): Promise<BodyParts> {
         root.add(electricShockModel);
         console.log('✅ Successfully loaded custom Electric Shock model from:', ELECTRIC_SHOCK_MODEL_PATH);
 
-        if (electricShockModel.animations && electricShockModel.animations.length > 0) {
+        if (gltf.animations && gltf.animations.length > 0) {
           electricShockMixer = new THREE.AnimationMixer(electricShockModel);
-          electricShockAnimations = electricShockModel.animations;
-          console.log(`✅ Loaded ${electricShockAnimations.length} native animations from Electric Shock FBX.`);
+          electricShockAnimations = gltf.animations;
+          console.log(`✅ Loaded ${electricShockAnimations.length} native animations from Electric Shock GLB.`);
         }
       } catch (e) {
         console.error("Failed to load Electric Shock model:", e);
