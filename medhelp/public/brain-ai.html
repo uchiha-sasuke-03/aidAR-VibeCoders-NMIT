@@ -742,7 +742,7 @@
   </div>
 
   <script>
-    const BACKEND_URL = 'http://127.0.0.1:5000'; // Change for production
+    const NVIDIA_API_KEY = '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';
     let imageBase64 = null;
 
     // Drag & drop
@@ -926,7 +926,7 @@ Return ONLY valid JSON in this exact format:
 }`;
 
       try {
-        const res = await fetch(`${BACKEND_URL}/api/analyze/brain`, {
+        const res = await fetch('http://localhost:5000/api/analyze/brain', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -322,7 +322,7 @@ export class BleedingAnimation {
       const progress = Math.min(this.phaseTime / 2, 1);
       const eased = progress * progress * (3 - 2 * progress);
 
-      if (!this.nativeAction) {
+      if (this.nativeActions.length === 0) {
         this.parts.leftUpperArm.rotation.z = this.origLUA_Z + eased * 1.2;
         this.parts.leftLowerArm.rotation.z = this.origLLA_Z + eased * 0.8;
         this.parts.leftUpperArm.position.y = this.origLUA_Y + eased * 0.2;
