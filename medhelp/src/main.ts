@@ -196,5 +196,52 @@ document.addEventListener('DOMContentLoaded', async () => {
       sidePanel.style.display = vis === 'none' ? 'flex' : 'none';
     });
   }
+
+  // 11. Feedback System
+  const fbForm = document.getElementById('feedback-form') as HTMLFormElement;
+  const fbList = document.getElementById('feedback-list');
+  
+  if (fbForm && fbList) {
+    fbForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const nameInput = document.getElementById('fb-name') as HTMLInputElement;
+      const textInput = document.getElementById('fb-text') as HTMLTextAreaElement;
+      const ratingInput = fbForm.querySelector('input[name="rating"]:checked') as HTMLInputElement;
+      
+      if (!nameInput.value || !textInput.value) return;
+      
+      const rating = ratingInput ? parseInt(ratingInput.value) : 5;
+      const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+      
+      const newItem = document.createElement('div');
+      newItem.className = 'feedback-item';
+      newItem.style.opacity = '0';
+      newItem.style.transform = 'translateY(10px)';
+      
+      newItem.innerHTML = `
+        <div class="fb-header">
+          <span class="fb-stars">${stars}</span>
+          <span class="fb-date">Just now</span>
+        </div>
+        <p class="fb-body">"${textInput.value}"</p>
+        <div class="fb-user">${nameInput.value}</div>
+      `;
+      
+      // Insert at the top of the list
+      fbList.prepend(newItem);
+      
+      // Animate in
+      setTimeout(() => {
+        newItem.style.transition = 'all 0.4s ease';
+        newItem.style.opacity = '1';
+        newItem.style.transform = 'translateY(0)';
+      }, 50);
+      
+      // Reset form
+      fbForm.reset();
+    });
+  }
 });
+
 

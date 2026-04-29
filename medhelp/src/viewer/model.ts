@@ -268,7 +268,7 @@ export async function createProceduralModel(): Promise<BodyParts> {
       try {
         const gltf = await loader.loadAsync(CPR_MODEL_PATH);
         cprModel = gltf.scene;
-        cprModel.scale.setScalar(0.15); // Increased for better presentation
+        cprModel.scale.setScalar(1.2); // Increased from 0.15 for better visibility
         // Force all materials to be opaque
         cprModel.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
@@ -315,7 +315,7 @@ export async function createProceduralModel(): Promise<BodyParts> {
       try {
         const gltf = await loader.loadAsync(BLEEDING_MODEL_PATH);
         bleedingModel = gltf.scene;
-        bleedingModel.scale.setScalar(0.15); // Adjusted scale
+        bleedingModel.scale.setScalar(0.5); // Increased from 0.15 // Adjusted scale
         bleedingModel.visible = false; // Hidden by default
         // Force all materials to be opaque
         bleedingModel.traverse((child) => {
@@ -347,7 +347,7 @@ export async function createProceduralModel(): Promise<BodyParts> {
       try {
         const gltf = await loader.loadAsync(ELECTRIC_SHOCK_MODEL_PATH);
         electricShockModel = gltf.scene;
-        electricShockModel.scale.setScalar(0.15);
+        electricShockModel.scale.setScalar(0.8); // Increased from 0.15
         electricShockModel.visible = false;
         electricShockModel.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {

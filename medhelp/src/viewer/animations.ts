@@ -39,7 +39,12 @@ export class CPRAnimation {
     this.origHeadRotX = parts.head.rotation.x;
 
     if (parts.cprMixer && parts.cprAnimations && parts.cprAnimations.length > 0) {
-      this.nativeActions = parts.cprAnimations.map(a => parts.cprMixer!.clipAction(a));
+      this.nativeActions = parts.cprAnimations.map(a => {
+        const action = parts.cprMixer!.clipAction(a);
+        action.play().paused = true; // Initialize in first frame pose
+        return action;
+      });
+      parts.cprMixer.update(0);
     }
   }
 
@@ -51,6 +56,13 @@ export class CPRAnimation {
     this.compressionCount = 0;
 
     if (this.parts.cprModel) this.parts.cprModel.visible = true;
+    if (this.nativeActions.length > 0) {
+      this.nativeActions.forEach(a => {
+        a.reset();
+        a.setEffectiveWeight(1.0);
+        a.play();
+      });
+    }
     if (this.parts.bleedingModel) this.parts.bleedingModel.visible = false;
     if (this.parts.electricShockModel) this.parts.electricShockModel.visible = false;
     
@@ -58,13 +70,6 @@ export class CPRAnimation {
     if ((this.parts.chest as THREE.Mesh).material) {
       ((this.parts.chest as THREE.Mesh).material as THREE.MeshStandardMaterial).emissive.set(0x3b82f6);
       ((this.parts.chest as THREE.Mesh).material as THREE.MeshStandardMaterial).emissiveIntensity = 0.3;
-    }
-
-    if (this.nativeActions.length > 0) {
-      this.nativeActions.forEach(a => {
-        a.reset();
-        a.play();
-      });
     }
 
     emit('animation:start', {
@@ -87,7 +92,10 @@ export class CPRAnimation {
   stop() {
     this.active = false;
     if (this.nativeActions.length > 0) {
-      this.nativeActions.forEach(a => a.stop());
+      this.nativeActions.forEach(a => {
+        a.paused = true;
+        a.time = 0;
+      });
     }
 
     this.parts.chest.position.y = this.origChestY;
@@ -113,9 +121,13 @@ export class CPRAnimation {
       // ~110 BPM = 1.83 per second
       const freq = 1.83 * 2 * Math.PI;
       
+      // Procedural fallback if no native animations
       if (this.nativeActions.length === 0) {
         const compression = Math.sin(this.time * freq) * 0.04;
         this.parts.chest.position.y = this.origChestY + compression;
+      } else {
+        // Even with native animations, we can still overlay the procedural chest movement if desired,
+        // but for now let's just ensure the native ones are updating.
       }
 
       // Pulse glow
@@ -198,7 +210,7 @@ export class BleedingAnimation {
   private origLLA_Z: number;
   private origLUA_Y: number;
   private origLLA_Y: number;
-  private nativeAction?: THREE.AnimationAction;
+  private nativeActions: THREE.AnimationAction[] = [];
 
   constructor(parts: BodyParts) {
     this.parts = parts;
@@ -208,7 +220,12 @@ export class BleedingAnimation {
     this.origLLA_Y = parts.leftLowerArm.position.y;
 
     if (parts.bleedingMixer && parts.bleedingAnimations && parts.bleedingAnimations.length > 0) {
-      this.nativeAction = parts.bleedingMixer.clipAction(parts.bleedingAnimations[0]);
+      this.nativeActions = parts.bleedingAnimations.map(a => {
+        const action = parts.bleedingMixer!.clipAction(a);
+        action.play().paused = true; // Initialize in first frame pose
+        return action;
+      });
+      parts.bleedingMixer.update(0);
     }
   }
 
@@ -222,9 +239,12 @@ export class BleedingAnimation {
     if (this.parts.cprModel) this.parts.cprModel.visible = false;
     if (this.parts.electricShockModel) this.parts.electricShockModel.visible = false;
 
-    if (this.nativeAction) {
-      this.nativeAction.reset();
-      this.nativeAction.play();
+    if (this.nativeActions.length > 0) {
+      this.nativeActions.forEach(a => {
+        a.reset();
+        a.setEffectiveWeight(1.0);
+        a.play();
+      });
     }
 
     emit('animation:start', {
@@ -247,8 +267,11 @@ export class BleedingAnimation {
   stop() {
     this.active = false;
     
-    if (this.nativeAction) {
-      this.nativeAction.stop();
+    if (this.nativeActions.length > 0) {
+      this.nativeActions.forEach(a => {
+        a.paused = true;
+        a.time = 0;
+      });
     }
 
     // Reset pressure points
@@ -373,13 +396,18 @@ export class ElectricShockAnimation {
   private parts: BodyParts;
   private phaseTime = 0;
 
-  private nativeAction?: THREE.AnimationAction;
+  private nativeActions: THREE.AnimationAction[] = [];
 
   constructor(parts: BodyParts) {
     this.parts = parts;
 
     if (parts.electricShockMixer && parts.electricShockAnimations && parts.electricShockAnimations.length > 0) {
-      this.nativeAction = parts.electricShockMixer.clipAction(parts.electricShockAnimations[0]);
+      this.nativeActions = parts.electricShockAnimations.map(a => {
+        const action = parts.electricShockMixer!.clipAction(a);
+        action.play().paused = true; // Initialize in first frame pose
+        return action;
+      });
+      parts.electricShockMixer.update(0);
     }
   }
 
@@ -392,9 +420,12 @@ export class ElectricShockAnimation {
     if (this.parts.cprModel) this.parts.cprModel.visible = false;
     if (this.parts.bleedingModel) this.parts.bleedingModel.visible = false;
 
-    if (this.nativeAction) {
-      this.nativeAction.reset();
-      this.nativeAction.play();
+    if (this.nativeActions.length > 0) {
+      this.nativeActions.forEach(a => {
+        a.reset();
+        a.setEffectiveWeight(1.0);
+        a.play();
+      });
     }
 
     emit('animation:start', {
@@ -417,8 +448,11 @@ export class ElectricShockAnimation {
   stop() {
     this.active = false;
     
-    if (this.nativeAction) {
-      this.nativeAction.stop();
+    if (this.nativeActions.length > 0) {
+      this.nativeActions.forEach(a => {
+        a.paused = true;
+        a.time = 0;
+      });
     }
 
     if (this.parts.electricShockModel) this.parts.electricShockModel.visible = false;

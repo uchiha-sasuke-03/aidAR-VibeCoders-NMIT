@@ -527,16 +527,100 @@
       </div>
     </section>
 
-    <!-- ── ACCESS TERMINAL ──────────────────────────────────── -->
-    <section class="section-block" id="login-section-anchor">
+
+    <!-- ── FEEDBACK & RATING SECTION ──────────────────────── -->
+    <section class="section-block feedback-section">
       <div class="section-header reveal">
-        <div class="section-tag">Secure Access</div>
-        <h2>Sign In</h2>
-        <p>Create an account or sign in to access the full platform.</p>
+        <div class="section-tag">Community Feedback</div>
+        <h2>Clinical Experience & Ratings</h2>
+        <p>Your insights help us refine our multi-agent diagnostic accuracy and platform performance.</p>
       </div>
-      <div class="auth-trigger-wrap reveal">
-        <button class="btn-primary auth-open-btn" id="btn-login">Open Sign In</button>
-        <span class="auth-trigger-note">or <a id="skip-login">continue as guest →</a></span>
+
+      <div class="feedback-container">
+        <!-- Feedback Form -->
+        <div class="feedback-form-card reveal">
+          <div class="card-glow"></div>
+          <h3>Submit Your Review</h3>
+          <form id="feedback-form">
+            <div class="rating-selector">
+              <label>Service Rating</label>
+              <div class="star-rating" id="star-input">
+                <input type="radio" name="rating" value="5" id="s5"><label for="s5">★</label>
+                <input type="radio" name="rating" value="4" id="s4"><label for="s4">★</label>
+                <input type="radio" name="rating" value="3" id="s3"><label for="s3">★</label>
+                <input type="radio" name="rating" value="2" id="s2"><label for="s2">★</label>
+                <input type="radio" name="rating" value="1" id="s1"><label for="s1">★</label>
+              </div>
+            </div>
+            <div class="auth-input-wrap">
+              <label>Professional Identity</label>
+              <input type="text" id="fb-name" class="auth-input" placeholder="e.g. Dr. Sarah Chen, Neurologist" required />
+            </div>
+            <div class="auth-input-wrap">
+              <label>Experience Detail</label>
+              <textarea id="fb-text" class="auth-input" placeholder="How has aidAR assisted in your clinical workflow?" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary fb-submit-btn">Post Feedback →</button>
+          </form>
+        </div>
+
+        <!-- Feedback Display -->
+        <div class="feedback-display reveal">
+          <div class="feedback-list" id="feedback-list">
+            <!-- Initial dummy feedbacks -->
+            <div class="feedback-item">
+              <div class="fb-header">
+                <span class="fb-stars">★★★★★</span>
+                <span class="fb-date">2 days ago</span>
+              </div>
+              <p class="fb-body">"The 3D anatomy viewer integration with real-time CPR feedback is a game changer for emergency response training. The multi-agent pipeline is incredibly fast."</p>
+              <div class="fb-user">Dr. James Miller, Trauma Specialist</div>
+            </div>
+            
+            <div class="feedback-item">
+              <div class="fb-header">
+                <span class="fb-stars">★★★★★</span>
+                <span class="fb-date">1 week ago</span>
+              </div>
+              <p class="fb-body">"Skin AI analysis accurately identified early-stage dermatitis during our pilot test. The confidence score provides necessary clinical context for practitioners."</p>
+              <div class="fb-user">Pro. Elena Rodriguez, Dermatology</div>
+            </div>
+
+            <div class="feedback-item">
+              <div class="fb-header">
+                <span class="fb-stars">★★★★☆</span>
+                <span class="fb-date">3 weeks ago</span>
+              </div>
+              <p class="fb-body">"Excellent UI/UX. The Digital Twin simulation is highly detailed, though I'd love to see even more biometric integration in future updates."</p>
+              <div class="fb-user">Marcus Thorne, Health Tech Analyst</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PHONE SUPPORT SECTION ──────────────────────────── -->
+    <section class="section-block phone-support-section">
+      <div class="support-card reveal">
+        <div class="support-content">
+          <div class="section-tag">Direct Access</div>
+          <h2>Phone Support</h2>
+          <p>Bring the power of aidAR to your mobile device. Download our official clinical support application for on-the-go diagnostics and real-time biometric sync.</p>
+          <a href="https://docs.google.com/uc?export=download&id=1oqKMkkzfUc4WEA_N3JUujPXLCI1b-vgx" class="btn-primary support-download-btn">
+            Download App (APK) ↓
+          </a>
+        </div>
+        <div class="support-visual">
+          <div class="mobile-mockup">
+            <div class="mockup-screen">
+              <div class="mockup-ui">
+                <div class="ui-line"></div>
+                <div class="ui-line short"></div>
+                <div class="ui-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

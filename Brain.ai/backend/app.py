@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # NVIDIA NIM configuration
-NVIDIA_API_KEY = "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"
+NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY", "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")
 client = OpenAI(
     base_url="https://integrate.api.nvidia.com/v1",
     api_key=NVIDIA_API_KEY,

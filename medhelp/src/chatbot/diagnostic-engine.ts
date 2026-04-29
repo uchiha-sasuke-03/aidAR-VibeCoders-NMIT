@@ -24,12 +24,15 @@ export function initChatbot(onMessage: (msg: ChatMessage) => void) {
   }, 500);
 }
 
+// Backend Configuration
+const BACKEND_URL = 'http://127.0.0.1:5000'; // Change to your live backend URL in production
+
 export async function handleUserInput(input: string) {
   // Echo user message
   onMessageCb({ role: 'user', text: input });
 
   try {
-    const response = await fetch('http://127.0.0.1:5000/api/chat', {
+    const response = await fetch(`${BACKEND_URL}/api/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
