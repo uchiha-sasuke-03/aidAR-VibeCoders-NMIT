@@ -46,11 +46,6 @@
 - Distinguishes between benign and malignant presentations
 - Delivers risk scores with structured clinical recommendations
 
-### 🫁 Lung AI Agent
-- Respiratory health monitoring via **chest X-ray analysis**
-- Detects pneumonia, fibrosis, and obstruction patterns
-- Structured clinical findings with confidence intervals
-
 ### 🧬 Digital Twin Agent
 - Real-time biometric synchronization onto an interactive 3D patient model
 - Live physiological telemetry via **WebSocket**
