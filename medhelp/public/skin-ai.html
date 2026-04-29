@@ -442,7 +442,7 @@
   </div>
 
   <script>
-    const NVIDIA_API_KEY = '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';
+    const BACKEND_URL = 'http://127.0.0.1:5000'; // Change for production
     let imageBase64 = null;
 
     // Drag & drop
@@ -595,7 +595,7 @@ Patient Information:
 - Symptoms: ${document.getElementById('symptoms').value || 'None provided'}`;
 
       try {
-        const response = await fetch('http://127.0.0.1:5000/api/analyze/skin', {
+        const response = await fetch(`${BACKEND_URL}/api/analyze/skin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
